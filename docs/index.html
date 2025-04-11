@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://asset.folklore.place; script-src 'self' 'unsafe-inline'">
+    <title>Folklore Preview</title>
+    <script>
+        // Preview URI
+        const PREVIEW_URI = "-folklore-workers.pkizumi-beta.workers.dev"
+
+        // URL パラメータを取得
+        const source = new URL(window.location)
+        console.log(source)
+
+        // https://asset.folklore.place/preview/head-worker/hash.txt から、ハッシュを取得しリダイレクト
+        fetch('https://asset.folklore.place/preview/head-worker/hash.txt')
+            .then(res => {
+                if (!res.ok) 
+                    throw new Error('Network response was not ok');
+                
+                return res.text();
+            }).then(text => {
+                const hash = text.trim();
+                const callbackUrl = `https://${hash}${PREVIEW_URI}${source.pathname}${source.search}`;
+
+                // リダイレクト
+                window.location.href = callbackUrl;
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    </script>
+    <meta http-equiv="refresh" content="0; url=javascript:void(0);">
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
