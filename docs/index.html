@@ -13,7 +13,10 @@
         console.log(source)
 
         // https://asset.folklore.place/preview/head-worker/hash.txt から、ハッシュを取得しリダイレクト
-        fetch('https://asset.folklore.place/preview/head-worker/hash.txt')
+        fetch('https://asset.folklore.place/preview/head-worker/hash.txt', {
+            cache: 'no-store',
+            method: 'GET',
+        })
             .then(res => {
                 if (!res.ok) 
                     throw new Error('Network response was not ok');
