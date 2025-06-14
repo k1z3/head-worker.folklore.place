@@ -25,12 +25,12 @@
             }).then(text => {
                 const hash = text.trim();
                 const callbackUrl = `https://${hash}${PREVIEW_URI}${source.pathname}${source.search}`;
-                document.getElementById("console").textContent(`Redirecting: '${callbackUrl}'`)
+                document.getElementById("console").textContent = `Redirecting: '${callbackUrl}'`
 
                 // リダイレクト
                 window.location.href = callbackUrl;
             }).catch(error => {
-                document.getElementById("console").textContent(`There has been a problem with your fetch operation: ${error}`)
+                document.getElementById("console").textContent = `There has been a problem with your fetch operation: ${error}`
                 console.error('There has been a problem with your fetch operation:', error);
             });
     </script>
